@@ -6,8 +6,6 @@ using SweetSavory.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Security.Claims;
 
 namespace SweetSavory.Controllers
 {
@@ -37,9 +35,13 @@ namespace SweetSavory.Controllers
     [HttpPost]
     public ActionResult Create(Flavor flavor)
     {
-      _db.Flavors.Add(flavor);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      if (ModelState.IsValid)
+      {
+        _db.Flavors.Add(flavor);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
+      return View(flavor);
     }
 
     [AllowAnonymous]
@@ -69,9 +71,13 @@ namespace SweetSavory.Controllers
     [HttpPost]
     public ActionResult Edit(Flavor flavor)
     {
-      _db.Entry(flavor).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Details", new { id = flavor.FlavorId });
+      if (ModelState.IsValid)
+      {
+        _db.Entry(flavor).State = EntityState.Modified;
+        _db.SaveChanges();
+        return RedirectToAction("Details", new { id = flavor.FlavorId });
+      }
+      return View(flavor);
     }
 
     public ActionResult Delete(int id)

@@ -33,16 +33,15 @@ namespace SweetSavory.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Treat treat, int FlavorId)
+    public ActionResult Create(Treat treat)
     {
-      _db.Treats.Add(treat);
-      _db.SaveChanges();
-      if (FlavorId != 0)
+      if (ModelState.IsValid)
       {
-        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
+        _db.Treats.Add(treat);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
       }
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      return View(treat);
     }
 
     [AllowAnonymous]
@@ -53,7 +52,7 @@ namespace SweetSavory.Controllers
         .ThenInclude(join => join.Flavor)
         .FirstOrDefault(treat => treat.TreatId == id);
       List<Flavor> currentFlavors = new List<Flavor> { };
-      foreach(FlavorTreat join in thisTreat.JoinEntities)
+      foreach (FlavorTreat join in thisTreat.JoinEntities)
       {
         currentFlavors.Add(join.Flavor);
       }
@@ -72,9 +71,13 @@ namespace SweetSavory.Controllers
     [HttpPost]
     public ActionResult Edit(Treat treat)
     {
-      _db.Entry(treat).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Details", new { id = treat.TreatId });
+      if (ModelState.IsValid)
+      {
+        _db.Entry(treat).State = EntityState.Modified;
+        _db.SaveChanges();
+        return RedirectToAction("Details", new { id = treat.TreatId });
+      }
+      return View(treat);
     }
 
     public ActionResult Delete(int id)
