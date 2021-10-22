@@ -9,11 +9,13 @@
   <h1 class="display-4">Editing @Model.Name</h1>
 </div>
 
-@using (Html.BeginForm())
-{
-  @Html.HiddenFor(model => model.TreatId)
-  @Html.LabelFor(model => model.Name)
-  @Html.EditorFor(model => model.Name)
-  @Html.ValidationMessageFor(model => model.Name)
-  <input type="submit" value="Edit Treat" class="btn btn-dark">
-}
+<div class="center-form">
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.TreatId)
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+    <input type="submit" value="Edit Treat" class="btn btn-dark">
+  }
+</div>

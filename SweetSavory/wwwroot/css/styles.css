@@ -79,7 +79,17 @@ body {
 	display: inline;
 }
 
-select {
+select, input, .text-box {
   margin-right: 5px;
   margin-left: 5px;
+}
+
+.field-validation-error {
+  color: red;
+}
+
+.center-form {
+  margin-top: 40px;
+  justify-content: center;
+  text-align: center;
 }
