@@ -54,6 +54,14 @@ namespace SweetSavory.Controllers
         .Include(treat => treat.JoinEntities)
         .ThenInclude(join => join.Flavor)
         .FirstOrDefault(treat => treat.TreatId == id);
+      List<Flavor> currentFlavors = new List<Flavor> { };
+      foreach(FlavorTreat join in thisTreat.JoinEntities)
+      {
+        currentFlavors.Add(join.Flavor);
+      }
+      var availableFlavors = _db.Flavors.Where(flavor => !currentFlavors.Contains(flavor)).ToList();
+      ViewBag.FlavorId = new SelectList(availableFlavors, "FlavorId", "Name");
+      ViewBag.ValidItems = availableFlavors.Any();
       return View(thisTreat);
     }
 
@@ -84,6 +92,26 @@ namespace SweetSavory.Controllers
       _db.Treats.Remove(thisTreat);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult AddFlavor(Treat treat, int FlavorId)
+    {
+      if (FlavorId != 0)
+      {
+        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = treat.TreatId });
+    }
+
+    [HttpPost]
+    public ActionResult DeleteFlavor(int joinId)
+    {
+      var joinEntry = _db.FlavorTreat.FirstOrDefault(entry => entry.FlavorTreatId == joinId);
+      _db.FlavorTreat.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.TreatId });
     }
   }
 }
