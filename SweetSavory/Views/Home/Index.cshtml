@@ -1,9 +1,41 @@
 ﻿@{
-    Layout = "_Layout";
-    @* ViewData["Title"] = "Home Page"; *@
+  Layout = "_Layout";
+  @* ViewData["Title"] = "Home Page"; *@
 }
 
+@using SweetSavory.Models
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to Pierre's Sweet and Savory Treats</h1>
-    <p class="display-5">Select a treat and flavor below for details!</p>
+  <h1 class="display-4">Welcome to Pierre's Sweet and Savory Treats</h1>
+  <p class="display-5">Select a treat or flavor below for details!</p>
 </div>
+
+<h3>Treats</h3>
+@if (Model.Treats.Count == 0)
+{
+  <p>No treats have been added to the database yet.</p>
+}
+else
+{
+  <ul>
+    @foreach (Treat treat in Model.Treats)
+    {
+      <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</li>
+    }
+  </ul>
+}
+<hr>
+<h3>Flavors</h3>
+@if (Model.Flavors.Count == 0)
+{
+  <p>No flavors have been added to the database yet.</p>
+}
+else
+{
+  <ul>
+    @foreach (Flavor flavor in Model.Flavors)
+    {
+      <li>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</li>
+    }
+  </ul>
+}
