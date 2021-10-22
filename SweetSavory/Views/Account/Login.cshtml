@@ -1,0 +1,33 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = "Login";
+}
+
+@using SweetSavory.ViewModels
+@model LoginViewModel
+
+<div class="text-center">
+  <h1 class="display-4">User Login</h1>
+  <hr>
+  @if (User.Identity.IsAuthenticated)
+  {
+    <p>You are already logged in. Please logout first.</p>
+    @using (Html.BeginForm("LogOff", "Account"))
+    {
+      <input type="submit" class="btn btn-dark" value="Log out" />
+    }
+  }
+  else
+  {
+    @using (Html.BeginForm())
+    {
+      @Html.Label("UserName", "User Name")
+      @Html.TextBoxFor(m => m.UserName)
+
+      @Html.LabelFor(m => m.Password)
+      @Html.PasswordFor(m => m.Password)
+
+      <input type="submit" value="Log in" class="btn btn-dark" />
+    }
+  }
+</div>
