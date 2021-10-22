@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = $"Editing {@Model.Name}";
+}
+
+@model SweetSavory.Models.Treat
+
+<div class="text-center">
+  <h1 class="display-4">Editing @Model.Name</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.TreatId)
+
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
+  <input type="submit" value="Edit Treat" class="btn btn-dark">
+}

@@ -6,8 +6,6 @@ using SweetSavory.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Security.Claims;
 
 namespace SweetSavory.Controllers
 {

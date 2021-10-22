@@ -1,0 +1,61 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = $"{@Model.Name} Details";
+}
+
+@model SweetSavory.Models.Treat
+
+<div class="text-center">
+  <h1 class="display-4">@Model.Name Details</h1>
+  <p>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</p>
+</div>
+
+
+@if (Model.JoinEntities.Count == 0)
+{
+  <p>No flavors have been assigned to this treat yet.</p>
+}
+else
+{
+  <p>This treat contains the following flavors:</p>
+  <ul>
+    @foreach (var join in Model.JoinEntities)
+    {
+      <div class="delete-join">
+        <li>
+          @Html.ActionLink($"{@join.Flavor.Name}", "Details", "Flavors", new { id = @join.Flavor.FlavorId })
+          @if (User.Identity.IsAuthenticated)
+          {
+            @using (Html.BeginForm("DeleteFlavor", "Treats"))
+            {
+              @Html.Hidden("joinId", @join.FlavorTreatId)
+              <input type="submit" value="Remove Flavor" class="btn btn-danger btn-sm">
+            }
+          }
+        </li>
+      </div>
+    }
+  </ul>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+  @if (ViewBag.ValidItems)
+  {
+    @using (Html.BeginForm("AddFlavor", "Treats"))
+    {
+      @Html.HiddenFor(model => model.TreatId)
+
+      @Html.Label("Add Flavor")
+      @Html.DropDownList("FlavorId")
+      <input type="submit" value="Add Flavor" class="btn btn-dark btn-sm" />
+    }
+  }
+  else
+  {
+    <p>This treat (somehow) contains all available flavors.</p>
+  }
+  <hr>
+  <p>@Html.ActionLink("Edit Treat", "Edit", new { id = Model.TreatId})</p>
+  <p>@Html.ActionLink("Delete Treat", "Delete", new { id = Model.TreatId})</p>
+}

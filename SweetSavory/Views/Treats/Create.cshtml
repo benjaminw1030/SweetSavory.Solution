@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = "Create Treat";
+}
+
+@model SweetSavory.Models.Treat
+
+<div class="text-center">
+  <h1 class="display-4">Create a Treat</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+  <input type="submit" value="Add Treat" class="btn btn-dark">
+}

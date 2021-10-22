@@ -62,10 +62,24 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+.delete-join {
+  margin-bottom: 5px;
+}
+
+.delete-join form{
+	display: inline;
+}
+
+select {
+  margin-right: 5px;
+  margin-left: 5px;
 }
