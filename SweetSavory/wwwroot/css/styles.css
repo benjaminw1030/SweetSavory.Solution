@@ -93,3 +93,11 @@ select, input, .text-box {
   justify-content: center;
   text-align: center;
 }
+
+a {
+  color: #343a40!important
+}
+
+footer a {
+  color: #6c757d!important;
+}

@@ -23,7 +23,7 @@ else
   </ul>
 }
 
-@if(User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
 {
   @Html.ActionLink("Create a new flavor", "Create")
 }
