@@ -7,12 +7,14 @@
   <h1 class="display-4">Deleting @Model.Name</h1>
 </div>
 
-<p>Are you sure?</p>
-<hr>
-<div class="link-buttons">
-  @using (Html.BeginForm())
-  {
-    <input type="submit" value="Yes" class="btn btn-danger btn-lg" />
-  }
-  <a class="btn btn-success btn-lg" href="~/Flavors/Details/@Model.FlavorId">No</a>
+<div class="delete">
+  <p>Are you sure?</p>
+  <hr>
+  <div class="delete-buttons">
+    @using (Html.BeginForm())
+    {
+      <input type="submit" value="Yes" class="btn btn-danger btn-lg" />
+    }
+    <a class="btn btn-success btn-lg" href="~/Flavors/Details/@Model.FlavorId">No</a>
+  </div>
 </div>

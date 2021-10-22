@@ -75,7 +75,7 @@ body {
   margin-bottom: 5px;
 }
 
-.delete-join form{
+.delete-join form, .delete-buttons form {
 	display: inline;
 }
 
@@ -88,7 +88,7 @@ select, input, .text-box {
   color: red;
 }
 
-.center-form {
+.center-form, .delete{
   margin-top: 40px;
   justify-content: center;
   text-align: center;
